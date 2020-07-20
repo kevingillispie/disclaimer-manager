@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@800&family=Open+Sans:wght@700&display=swap');
+
+:root {
+    --section-padding-top: 190px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: whitesmoke;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightgray;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: gray;
+}
+
+body {
+    margin: 0;
+    background-color: #16161d;
+    overflow-x: hidden;
+}
+
+section {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 20px 20px 40px 40px;
+    border-radius: 0 0 0 70px;
+}
+
+section:not(:last-of-type) {
+    box-shadow: 0 3px 5px lightgray;
+}
+
+section:nth-of-type(1) {
+    background-color: white;
+    z-index: 100;
+}
+
+section:nth-of-type(2) {
+    background-image: linear-gradient(190deg, #EBECF0, #EBECF0, #EBECF0, snow);
+    background-color: #EBECF0;
+    z-index: 10;
+    padding-top: var(--section-padding-top);
+}
+
+section img {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border: 2px solid lavender;
+    border-radius: 100px;
+    margin: 0 10px;
+    padding: 10px;
+}
+
+section h1 {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding-right: 50px;
+}
+
+#client-name-container h2 {
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    font-size: 32px;
+    color: #61677C;
+    margin: 0;
+    padding-right: 50px;
+    text-shadow: -2px -2px 1px #FFF, 2px 2px 1px #BABECC;;
+}
+#client-name-container h2 a,
+#client-name-container p {
+    text-decoration: none;
+    color: #61677C;
+}
+
+#page-title a {
+    text-decoration: none;
+    color: black;
+}
+
+#client-container {
+    align-items: flex-start;
+}
+
+#client-container>div {
+    max-width: 33vw;
+}
+
+#client-container>div:first-of-type {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#client-container>div:not(:first-of-type) {
+    margin: 0 10px;
+}
+
+section p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 12px;
+    color: white;
+}
+
+section:nth-of-type(1) p {
+    color: black;
+}
+
+.disclaimer-container,
+.disclaimer {
+    display: flex;
+    flex-direction: column;
+}
+
+h3, .delete-disclaimer {
+    font-family: Lato, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    color: lightgray;
+    text-shadow: 1px 1px 1px #FFF;
+    margin-top: 0;
+}
+
+h3 sup {
+    font-size: 10px;
+}
+
+hr {
+    width: 100%;
+    border: none;
+    border-radius: 100px;
+    box-shadow: inset 2px 1px 5px #BABECC, inset -3px -2px 5px #FFF;
+    margin-top: 30px;
+    padding: 5px 0;
+}
+
+#selected-text,
+textarea,
+button {
+    width: 30vw;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    border-radius: 30px;
+    padding: 16px;
+    background-color: #EBECF0;
+    text-shadow: 2px 2px 0 #FFF;
+    margin-right: 8px;
+    box-shadow: inset 2px 2px 5px #BABECC, inset -1px -3px 10px #FFF;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+#selected-text,
+textarea {
+    height: 100px;
+    transition: none;
+    text-shadow: 1px 1px 0 #FFF;
+}
+
+#selected-text {
+    height: 300px;
+    margin-top: 0;
+    font-family: monospace;
+    overflow-y: scroll;
+}
+
+#selected-text li {
+    list-style: none;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+#selected-text li:hover {
+    background-color: lavenderblush;
+    cursor: pointer;
+}
+
+#selected-text li::before {
+    position: relative;
+    margin-left: -30px;
+}
+
+#selected-text li:nth-of-type(1):before {
+    content: '*';
+}
+
+#selected-text li:nth-of-type(2):before {
+    content: '**';
+}
+
+#selected-text li:nth-of-type(3):before {
+    content: '***';
+}
+
+#selected-text li:nth-of-type(4):before {
+    content: '†';
+}
+
+#selected-text li:nth-of-type(5):before {
+    content: '‡';
+}
+
+textarea:focus {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+button {
+    width: 15vw;
+    margin: 20px auto 0;
+    color: #61677C;
+    font-weight: bold;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+button:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    color: coral;
+}
+
+button:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+button svg {
+    position: relative;
+    margin-bottom: -4px;
+}
+
+.disclaimer-btn-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.disclaimer-btn-container button {
+    width: 170px;
+}
+
+.delete-disclaimer {
+    padding: 3px 0;
+    font-weight: 800;
+}
+
+.delete-disclaimer:hover {
+    color: red;
+    cursor: pointer;
+}
+
+#new-disclaimer-btn {
+    width: 100%;
+}
+
+/* ************ */
+/* DELETE MODAL */
+.show {
+    z-index: 1000;
+}
+#delete-disclaimer-modal,
+#generated-code-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+}
+#delete-confirmation h4,
+#generated-code-container h4,
+p {
+    margin: 0;
+}
+#delete-confirmation h4,
+#generated-code-container h4 {
+    font-size: 22px;
+}
+#delete-confirmation p,
+#generated-code-container p {
+    font-size: 14px;
+    font-style: italic;
+}
+
+#delete-confirmation,
+#generated-code-container {
+    position: absolute;
+    width: 320px;
+    padding: 20px;
+    margin: 10% auto 0 calc(50% - 160px);
+    font-family: Lato, sans-serif;
+    text-align: center;
+    background-color: #EBECF0;
+    border: 3px solid coral;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px #0F0F0F;
+}
+
+#delete-btn-container button {
+    width: 100px;
+    border: 0;
+    outline: 0;
+    font-size: 16px;
+    color: lightgray;
+    border-radius: 30px;
+    padding: 16px;
+    background-color: #EBECF0;
+    text-shadow: 2px 2px 0 #FFF;
+    margin: 20px 8px 10px;
+    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+#delete-btn-container button:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    color: coral;
+}
+
+#delete-btn-container button:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+}
+
+#generated-code-container {
+    width: 560px;
+    margin: 10% auto 0 calc(50% - 280px);
+}
+
+#generated-code-container textarea {
+    margin-top: 10px;
+    height: 200px;
+    max-width: 515px;
+}

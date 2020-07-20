@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="ISO-8859-1">
+    <title>Disclaimer Editor</title>
+    <link href="/disclaimer-editor.css" rel="stylesheet">
+    <!-- TO DO: -->
+    <!-- <link rel="stylesheet" href="https://unpkg.com/simplebar@latest/dist/simplebar.css" />
+    <script src="https://unpkg.com/simplebar@latest/dist/simplebar.min.js"></script> 
+    ...or...
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css" />
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script> -->
+
+</head>
+
+<body>
+    <main>
+        <section>
+            <img src="/images/globe-sphere.png" />
+            <div id="page-title">
+                <a href="/disclaimer-manager.html">
+                    <h1>Disclaimer Editor</h1>
+                    <p>Edit the disclaimers below.</p>
+                </a>
+            </div>
+        </section>
+        <section id="client-container">
+            <div>
+                <img src="/images/circle-logo.png" />
+                <div id="client-name-container">
+                    <h2><a href="/disclaimer-manager.html">Client Name</a></h2>
+                    <p>Always Disclaiming.</p>
+                </div>
+            </div>
+            <div class="disclaimer-container">
+                <!-- <div class="disclaimer" data-record-id="1">
+                    <h3>Disclaimer <sup>#</sup><span>1</span></h3>
+                    <textarea></textarea>
+                    <div class="disclaimer-btn-container">
+                        <button class="update-btn">Save / Update</button>
+                        <button class="add-btn">Add <svg width="20" aria-hidden="true" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8c137 0 248 111 248 248S393 504 256 504 8 393 8 256 119 8 256 8zM140 300h116v70.9c0 10.7 13 16.1 20.5 8.5l114.3-114.9c4.7-4.7 4.7-12.2 0-16.9l-114.3-115c-7.6-7.6-20.5-2.2-20.5 8.5V212H140c-6.6 0-12 5.4-12 12v64c0 6.6 5.4 12 12 12z" class=""></path></svg></button>
+                    </div>
+                    <hr />
+                </div> -->
+                <button id="new-disclaimer-btn">New Disclaimer</button>
+            </div>
+            <div class="disclaimer-container selected">
+                <h3>Selected Disclaimers</h3>
+                <ul id="selected-text"></ul>
+                <button>Generate Code</button>
+            </div>
+        </section>
+        <div id="delete-disclaimer-modal" class="hide">
+            <div id="delete-confirmation">
+                <h4>Delete this disclaimer?</h4>
+                <p>This action can not be undone.</p>
+                <div id="delete-btn-container">
+                    <button class="delete-yes">Yes</button>
+                    <button class="delete-no">No</button>
+                </div>
+            </div>
+        </div>
+        <div id="generated-code-modal" class="hide">
+            <div id="generated-code-container">
+                <h4>Disclaimer Code</h4>
+                <p>Copy and paste this code onto a webpage <br />in the location that you would like it to appear.</p>
+                <textarea id="code-container"></textarea>
+                <button id="code-closer-btn">Close</button>
+            </div>
+        </div>
+    </main>
+    <script src="/disclaimer-editor.js" defer></script>
+</body>
+
+</html>
