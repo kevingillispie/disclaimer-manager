@@ -18,3 +18,7 @@ Internet marketing agencies often have multiple clients with multiple offers adv
 Whenever the verbiage of a disclaimer needs updating, instead of going to each landing page individually, this web app provides a centralized location to update all instances of a disclaimer.
 
 Proper attribution between a disclaimer and its associated offer is vitally important. This web app generates asterisks (*) and daggers (†, ‡) in a predictable sequence and appends them to the text of each disclaimer selected for a given offer. 
+
+## Version
+
+1.0 beta
