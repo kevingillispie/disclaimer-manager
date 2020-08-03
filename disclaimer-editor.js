@@ -1,3 +1,11 @@
+var selectedDisclaimerList = {};
+const _ajaxAction = {
+    'c': 'createDisclaimer',
+    'r': 'getDisclaimers',
+    'u': 'updateDisclaimer',
+    'd': 'deleteDisclaimer'
+}
+
 function createListElement(selectedDisclaimerList, key) {
     let listItem = document.createElement("LI");
     listItem.setAttribute("class", "selected-list-item");
@@ -15,7 +23,6 @@ function addButtonListener(addBtn) {
     if (addBtn.parentElement.parentElement.children[1].value.length <= 0) {
         alert("The disclaimer textbox is empty.");
     } else if (document.getElementById("selected-text").children.length < 5) {
-        let selectedDisclaimerList = {};
         selectedDisclaimerList[addBtn.parentElement.parentElement.dataset.recordId] = addBtn.parentElement.parentElement.children[1].value;
     } else {
         alert("WARNING:\r\n5-disclaimer maximum.");
@@ -106,43 +113,50 @@ function generateEmbedCode() {
         listItems.forEach(element => {
             selectedDisclaimers.push(element.dataset.recordId);
         });
-        document.getElementById("code-container").value = `<div id="disclaimer-container"></div><script defer>var selectedRequest=new XMLHttpRequest,selectedFormData=new FormData;function replaceIncomingHTMLEntities(e){let t=e[1].length,s=JSON.parse(e[1]),n=[];for(;t--;)n[t]=String.fromCharCode(parseInt(s[t]));return e[0]+" "+n.join("")}selectedFormData.append("request_type","POST"),selectedFormData.append("header_type","json"),selectedFormData.append("selectedDisclaimers",JSON.stringify([` + selectedDisclaimers + `])),selectedRequest.onreadystatechange=function(){if(4==selectedRequest.readyState&&200==selectedRequest.status){let e=JSON.parse(selectedRequest.responseText);console.log(e);let t=document.getElementById("disclaimer-container");e.forEach(e=>{console.log(e);let s=document.createElement("P");s.setAttribute("class","current-disclaimer"),s.innerText=replaceIncomingHTMLEntities(e),t.insertAdjacentElement("beforeend",s)})}},selectedRequest.open("POST","/disclaimer-manager/disclaimer-retriever.php",!0),selectedRequest.send(selectedFormData);</script>`;
+        document.getElementById("code-container").value = `<div id="disclaimer-container"><iframe width="100%" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" src="https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-fallback.php?disclaimers=` + selectedDisclaimers + `"></iframe></div><script defer>var selectedRequest=new XMLHttpRequest,selectedFormData=new FormData;function replaceIncomingHTMLEntities(e){let t=e[1].length,s=JSON.parse(e[1]),n=[];for(;t--;)n[t]=String.fromCharCode(parseInt(s[t]));return e[0]+" "+n.join("")}selectedFormData.append("request_type","POST"),selectedFormData.append("header_type","json"),selectedFormData.append("selectedDisclaimers",JSON.stringify([` + selectedDisclaimers + `])),selectedRequest.onreadystatechange=function(){if(4==selectedRequest.readyState&&200==selectedRequest.status){let e=JSON.parse(selectedRequest.responseText);console.log(e);let t=document.getElementById("disclaimer-container");e.forEach(e=>{console.log(e);let s=document.createElement("P");s.setAttribute("class","current-disclaimer"),s.innerText=replaceIncomingHTMLEntities(e),t.insertAdjacentElement("beforeend",s)})}},selectedRequest.open("POST","https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-retriever.php",!0),selectedRequest.send(selectedFormData);</script>`;
         document.getElementById('generated-code-modal').classList.toggle("show");
     } else {
         alert("Please select a disclaimer.");
     }
-
-    // console.log(`
-    //     <div id="disclaimer-container"></div><script defer>var selectedRequest=new XMLHttpRequest,selectedFormData=new FormData;function replaceIncomingHTMLEntities(e){let t=e[1].length,s=JSON.parse(e[1]),n=[];for(;t--;)n[t]=String.fromCharCode(parseInt(s[t]));return e[0]+" "+n.join("")}selectedFormData.append("request_type","POST"),selectedFormData.append("header_type","json"),selectedFormData.append("selectedDisclaimers",JSON.stringify([` + selectedDisclaimers + `])),selectedRequest.onreadystatechange=function(){if(4==selectedRequest.readyState&&200==selectedRequest.status){let e=JSON.parse(selectedRequest.responseText);console.log(e);let t=document.getElementById("disclaimer-container");e.forEach(e=>{console.log(e);let s=document.createElement("P");s.setAttribute("class","current-disclaimer"),s.innerText=replaceIncomingHTMLEntities(e),t.insertAdjacentElement("beforeend",s)})}},selectedRequest.open("POST","/disclaimer-manager/disclaimer-retriever.php",!0),selectedRequest.send(selectedFormData);</script>
-    // `);
 }
 
-//////////////////////////////////
-/////////////////////////////////
+////////////////////////////////
+///////////////////////////////
+
+function ajaxRequest(action, {...data}) {
+    var _request = new XMLHttpRequest();
+    var _formData = new FormData();
+    _formData.append(`request_type`, `POST`);
+    _formData.append(`header_type`, `json`);
+    _formData.append(`request`, action);
+    for (let key in data) {
+        if (data.hasOwnProperty(key)) {
+            let element = data[key];
+            _formData.append(data[key], element);
+        }
+    }
+    return {_request, _formData};
+}
 
 function createDisclaimerRecord() {
-    var createRequest = new XMLHttpRequest();
-    var createFormData = new FormData();
     var clientName = document.getElementsByTagName('H2')[0].innerText;
-    createFormData.append(`request`, `createDisclaimer`);
-    createFormData.append(`request_type`, `POST`);
-    createFormData.append(`header_type`, `json`);
-    createFormData.append(`client`, clientName);
+    let ajaxData = ajaxRequest(_ajaxAction.c, {'client': clientName});
 
-    createRequest.onreadystatechange = function() {
-        if (createRequest.readyState == 4 && createRequest.status == 200) {
-            let results = createRequest.responseText;
+    ajaxData._request.onreadystatechange = function() {
+        if (ajaxData._request.readyState == 4 && ajaxData._request.status == 200) {
+            let results = ajaxData._request.responseText;
             if (results == '1') {
                 alert("Record created!\r\nPlease update disclaimer's text.");
                 location.reload();
             } else {
                 console.log(results);
-                alert("Tell your admin:\r\n\n" + results);
+                alert("Tell Dizzy:\r\n\n" + results);
             }
         }
     }
-    createRequest.open("POST", `/disclaimer-manager/disclaimer-editor.php`, true);
-    createRequest.send(createFormData);
+
+    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.send(ajaxData._formData);
 }
 
 function replaceIncomingHTMLEntities(disclaimer) {
@@ -168,19 +182,14 @@ function replaceOutgoingHTMLEntities(disclaimer) {
 }
 
 function getDisclaimers() {
-    var getRequest = new XMLHttpRequest();
-    var getFormData = new FormData();
     var urlQueryString = location.search;
     var utmParameters = new URLSearchParams(urlQueryString);
     var clientName = utmParameters.get("clientName");
-    getFormData.append(`request`, `getDisclaimers`);
-    getFormData.append(`client`, clientName.substr(0, 4));
-    getFormData.append(`request_type`, `POST`);
-    getFormData.append(`header_type`, `json`);
+    let ajaxData = ajaxRequest(_ajaxAction.r, {'client': clientName.substr(0, 4)});
 
-    getRequest.onreadystatechange = function() {
-        if (getRequest.readyState == 4 && getRequest.status == 200) {
-            let results = JSON.parse(getRequest.responseText);
+    ajaxData._request.onreadystatechange = function() {
+        if (ajaxData._request.readyState == 4 && ajaxData._request.status == 200) {
+            let results = JSON.parse(ajaxData._request.responseText);
             results.forEach(disclaimer => {
                 loadDisclaimer(disclaimer['record_id']);
                 document.querySelector("[data-record-id=\"" + disclaimer['record_id'] + "\"]").children[1].value = replaceIncomingHTMLEntities(disclaimer["disclaimer"]);
@@ -189,61 +198,49 @@ function getDisclaimers() {
         }
     }
 
-    getRequest.open("POST", `/disclaimer-manager/disclaimer-editor.php`, true);
-    getRequest.send(getFormData);
+    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.send(ajaxData._formData);
 }
 
 function updateDisclaimer(record_id, disclaimer) {
-    var updateRequest = new XMLHttpRequest();
-    var updateFormData = new FormData();
     var escapedDisclaimer = replaceOutgoingHTMLEntities(disclaimer);
+    let ajaxData = ajaxRequest(_ajaxAction.u, {'record_id': record_id, 'disclaimer': escapedDisclaimer});
 
-    updateFormData.append(`request_type`, `POST`);
-    updateFormData.append(`header_type`, `json`);
-    updateFormData.append(`request`, `updateDisclaimer`);
-    updateFormData.append(`record_id`, record_id);
-    updateFormData.append(`disclaimer`, escapedDisclaimer);
-
-    updateRequest.onreadystatechange = function() {
-        if (updateRequest.readyState == 4 && updateRequest.status == 200) {
-            let results = updateRequest.responseText;
+    ajaxData._request.onreadystatechange = function() {
+        if (ajaxData._request.readyState == 4 && ajaxData._request.status == 200) {
+            let results = ajaxData._request.responseText;
             if (results == '1') {
                 alert("Disclaimer updated.");
                 location.reload();
             } else {
                 console.log(results);
-                alert("Tell your admin:\r\n\n" + results);
+                alert("Tell Dizzy:\r\n\n" + results);
             }
         }
     }
 
-    updateRequest.open("POST", `/disclaimer-manager/disclaimer-editor.php`, true);
-    updateRequest.send(updateFormData);
+    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.send(ajaxData._formData);
 }
 
 function deleteDisclaimer(record_id) {
-    var deleteRequest = new XMLHttpRequest();
-    var deleteFormData = new FormData();
-    deleteFormData.append(`request_type`, `POST`);
-    deleteFormData.append(`header_type`, `json`);
-    deleteFormData.append(`request`, `deleteDisclaimer`);
-    deleteFormData.append(`record_id`, record_id);
+    let ajaxData = ajaxRequest(_ajaxAction.d, {'record_id': record_id});
 
-    deleteFormData.onreadystatechange = function() {
-        if (deleteFormData.readyState == 4 && deleteFormData.status == 200) {
+    ajaxData._request.onreadystatechange = function() {
+        if (ajaxData._request.readyState == 4 && ajaxData._request.status == 200) {
             let results = deleteRequest.responseText;
             if (results == '1') {
                 alert("Disclaimer deleted.");
                 location.reload();
             } else {
                 console.log(results);
-                alert("Tell your admin:\r\n\n" + results);
+                alert("Tell Dizzy:\r\n\n" + results);
             }
         }
     }
 
-    deleteRequest.open("POST", `/disclaimer-manager/disclaimer-editor.php`, true);
-    deleteRequest.send(deleteFormData);
+    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.send(ajaxData._formData);
 }
 
 window.onload = function() {
