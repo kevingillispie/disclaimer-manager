@@ -11,26 +11,32 @@
 <body>
     <main>
         <section>
-            <img src="/images/globe-sphere.png" />
+            <img src="https://likstage.wpengine.com/wp-content/uploads/2020/06/lik-logo.png" />
             <div>
                 <h1>Disclaimer Manager</h1>
                 <p>Click on a client below.</p>
             </div>
         </section>
-        <section>
-            <img src="/images/circle-logo.png" />
-            <div>
-                <h2><a href="/disclaimer-editor.html?clientName=news%20agency">News Agency</a></h2>
-                <p>Always Disclaiming.</p>
+        <div id="add-new">
+            <button>Add client</button>
+        </div>
+        <div id="add-client-modal" class="hide">
+            <div id="add-confirmation">
+                <h4>Add New Client</h4>
+                <p>Enter Information Below</p>
+                <hr />
+                <div id="new-client-input-container">
+                    <label for="new-client-name">Client Name:</label>
+                    <input type="text" id="new-client-name"/>
+                    <label for="new-client-slogan">Client Slogan:</label>
+                    <input type="text" id="new-client-slogan"/>
+                </div>
+                <div id="add-btn-container">
+                    <button id="add-yes">Save</button>
+                    <button id="add-no">Cancel</button>
+                </div>
             </div>
-        </section>
-        <section>
-            <img src="/images/star-circle-red.png" />
-            <div>
-                <h2><a href="/disclaimer-editor.html?clientName=american%20surplus">American Surplus</a></h2>
-                <p>Catch the Disclaimer.</p>
-            </div>
-        </section>
+        </div>
     </main>
     <script src="/disclaimer-manager.js" defer></script>
 </body>
