@@ -32,16 +32,24 @@ body {
 
 section {
     position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 100%;
     padding: 20px 20px 40px 40px;
     border-radius: 0 0 0 70px;
 }
 
 section:not(:last-of-type) {
-    box-shadow: 0 3px 5px lightgray;
+    -webkit-box-shadow: 0 3px 5px lightgray;
+            box-shadow: 0 3px 5px lightgray;
 }
 
 section:nth-of-type(1) {
@@ -50,6 +58,7 @@ section:nth-of-type(1) {
 }
 
 section:nth-of-type(2) {
+    background-image: -o-linear-gradient(260deg, #EBECF0, #EBECF0, #EBECF0, snow);
     background-image: linear-gradient(190deg, #EBECF0, #EBECF0, #EBECF0, snow);
     background-color: #EBECF0;
     z-index: 10;
@@ -93,7 +102,9 @@ section h1 {
 }
 
 #client-container {
-    align-items: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
 }
 
 #client-container>div {
@@ -101,9 +112,16 @@ section h1 {
 }
 
 #client-container>div:first-of-type {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 #client-container>div:not(:first-of-type) {
@@ -123,8 +141,13 @@ section:nth-of-type(1) p {
 
 .disclaimer-container,
 .disclaimer {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 h3, .delete-disclaimer {
@@ -144,7 +167,8 @@ hr {
     width: 100%;
     border: none;
     border-radius: 100px;
-    box-shadow: inset 2px 1px 5px #BABECC, inset -3px -2px 5px #FFF;
+    -webkit-box-shadow: inset 2px 1px 5px #BABECC, inset -3px -2px 5px #FFF;
+            box-shadow: inset 2px 1px 5px #BABECC, inset -3px -2px 5px #FFF;
     margin-top: 30px;
     padding: 5px 0;
 }
@@ -161,16 +185,23 @@ button {
     background-color: #EBECF0;
     text-shadow: 2px 2px 0 #FFF;
     margin-right: 8px;
-    box-shadow: inset 2px 2px 5px #BABECC, inset -1px -3px 10px #FFF;
-    box-sizing: border-box;
+    -webkit-box-shadow: inset 2px 2px 5px #BABECC, inset -1px -3px 10px #FFF;
+            box-shadow: inset 2px 2px 5px #BABECC, inset -1px -3px 10px #FFF;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    appearance: none;
+    -moz-appearance: none;
+         appearance: none;
     -webkit-appearance: none;
 }
 
 #selected-text,
 textarea {
     height: 100px;
+    -webkit-transition: none;
+    -o-transition: none;
     transition: none;
     text-shadow: 1px 1px 0 #FFF;
 }
@@ -219,7 +250,8 @@ textarea {
 }
 
 textarea:focus {
-    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+    -webkit-box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+            box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
 
 button {
@@ -227,19 +259,24 @@ button {
     margin: 20px auto 0;
     color: #61677C;
     font-weight: bold;
-    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    -webkit-box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     font-weight: 600;
 }
 
 button:hover {
-    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    -webkit-box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
     color: coral;
 }
 
 button:active {
-    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+    -webkit-box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+            box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
 
 button svg {
@@ -248,8 +285,12 @@ button svg {
 }
 
 .disclaimer-btn-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 .disclaimer-btn-container button {
@@ -309,9 +350,11 @@ p {
     text-align: center;
     background-color: #EBECF0;
     border: 3px solid coral;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     border-radius: 20px;
-    box-shadow: 0 3px 10px #0F0F0F;
+    -webkit-box-shadow: 0 3px 10px #0F0F0F;
+            box-shadow: 0 3px 10px #0F0F0F;
 }
 
 #delete-btn-container button {
@@ -325,20 +368,27 @@ p {
     background-color: #EBECF0;
     text-shadow: 2px 2px 0 #FFF;
     margin: 20px 8px 10px;
-    box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
-    box-sizing: border-box;
+    -webkit-box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+            box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
-    appearance: none;
+    -moz-appearance: none;
+         appearance: none;
     -webkit-appearance: none;
 }
 
 #delete-btn-container button:hover {
-    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+    -webkit-box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+            box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
     color: coral;
 }
 
 #delete-btn-container button:active {
-    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+    -webkit-box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+            box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
 }
 
 #generated-code-container {
