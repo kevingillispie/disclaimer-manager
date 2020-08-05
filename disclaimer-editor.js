@@ -113,7 +113,7 @@ function generateEmbedCode() {
         listItems.forEach(element => {
             selectedDisclaimers.push(element.dataset.recordId);
         });
-        document.getElementById("code-container").value = `<div id="disclaimer-container"><iframe width="100%" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" src="https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-fallback.php?disclaimers=` + selectedDisclaimers + `"></iframe></div><script defer>var selectedRequest=new XMLHttpRequest,selectedFormData=new FormData;function replaceIncomingHTMLEntities(e){let t=e[1].length,s=JSON.parse(e[1]),n=[];for(;t--;)n[t]=String.fromCharCode(parseInt(s[t]));return e[0]+" "+n.join("")}selectedFormData.append("request_type","POST"),selectedFormData.append("header_type","json"),selectedFormData.append("selectedDisclaimers",JSON.stringify([` + selectedDisclaimers + `])),selectedRequest.onreadystatechange=function(){if(4==selectedRequest.readyState&&200==selectedRequest.status){let e=JSON.parse(selectedRequest.responseText);console.log(e);let t=document.getElementById("disclaimer-container");e.forEach(e=>{console.log(e);let s=document.createElement("P");s.setAttribute("class","current-disclaimer"),s.innerText=replaceIncomingHTMLEntities(e),t.insertAdjacentElement("beforeend",s)})}},selectedRequest.open("POST","https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-retriever.php",!0),selectedRequest.send(selectedFormData);</script>`;
+        document.getElementById("code-container").value = `<div id="disclaimer-container"><iframe width="100%" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="0" src="/disclaimer-fallback.php?disclaimers=` + selectedDisclaimers + `"></iframe></div><script defer>var selectedRequest=new XMLHttpRequest,selectedFormData=new FormData;function replaceIncomingHTMLEntities(e){let t=e[1].length,s=JSON.parse(e[1]),n=[];for(;t--;)n[t]=String.fromCharCode(parseInt(s[t]));return e[0]+" "+n.join("")}selectedFormData.append("request_type","POST"),selectedFormData.append("header_type","json"),selectedFormData.append("selectedDisclaimers",JSON.stringify([` + selectedDisclaimers + `])),selectedRequest.onreadystatechange=function(){if(4==selectedRequest.readyState&&200==selectedRequest.status){let e=JSON.parse(selectedRequest.responseText);console.log(e);let t=document.getElementById("disclaimer-container");t.children[0].remove();e.forEach(e=>{console.log(e);let s=document.createElement("P");s.setAttribute("class","current-disclaimer"),s.innerText=replaceIncomingHTMLEntities(e),t.insertAdjacentElement("beforeend",s)})}},selectedRequest.open("POST","https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-retriever.php",!0),selectedRequest.send(selectedFormData);</script>`;
         document.getElementById('generated-code-modal').classList.toggle("show");
     } else {
         alert("Please select a disclaimer.");
@@ -132,7 +132,7 @@ function ajaxRequest(action, {...data}) {
     for (let key in data) {
         if (data.hasOwnProperty(key)) {
             let element = data[key];
-            _formData.append(data[key], element);
+            _formData.append(key, element);
         }
     }
     return {_request, _formData};
@@ -155,7 +155,7 @@ function createDisclaimerRecord() {
         }
     }
 
-    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.open("POST", `/disclaimer-editor.php?uncache=` + Math.floor(Math.random() * 999999999), true);
     ajaxData._request.send(ajaxData._formData);
 }
 
@@ -198,7 +198,7 @@ function getDisclaimers() {
         }
     }
 
-    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.open("POST", `/disclaimer-editor.php?uncache=` + Math.floor(Math.random() * 999999999), true);
     ajaxData._request.send(ajaxData._formData);
 }
 
@@ -219,7 +219,7 @@ function updateDisclaimer(record_id, disclaimer) {
         }
     }
 
-    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.open("POST", `/disclaimer-editor.php?uncache=` + Math.floor(Math.random() * 999999999), true);
     ajaxData._request.send(ajaxData._formData);
 }
 
@@ -228,7 +228,7 @@ function deleteDisclaimer(record_id) {
 
     ajaxData._request.onreadystatechange = function() {
         if (ajaxData._request.readyState == 4 && ajaxData._request.status == 200) {
-            let results = deleteRequest.responseText;
+            let results = ajaxData._request.responseText;
             if (results == '1') {
                 alert("Disclaimer deleted.");
                 location.reload();
@@ -239,7 +239,7 @@ function deleteDisclaimer(record_id) {
         }
     }
 
-    ajaxData._request.open("POST", `https://likdashstage.wpengine.com/disclaimer-manager/disclaimer-editor.php`, true);
+    ajaxData._request.open("POST", `/disclaimer-editor.php?uncache=` + Math.floor(Math.random() * 999999999), true);
     ajaxData._request.send(ajaxData._formData);
 }
 
